@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Tank.gd" type="Script" id=1]
+[ext_resource path="res://images/wp1.png" type="Texture" id=2]
+[ext_resource path="res://Actor.gd" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 33.0631, 33.3131 )
+
+[node name="Game" type="Node2D" index="0"]
+
+[node name="Tank" type="Area2D" parent="." index="0"]
+
+position = Vector2( 121, 299 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Tank" index="0"]
+
+position = Vector2( -0.254904, -0.0368729 )
+scale = Vector2( 0.328647, 0.328647 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tank" index="1"]
+
+[node name="Position2D" type="Position2D" parent="Tank" index="2"]
+
+position = Vector2( 19.7583, 0 )
+
+[node name="Tween" type="Tween" parent="Tank" index="3"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Actor" type="KinematicBody2D" parent="." index="1"]
+
+position = Vector2( 899.932, 299.568 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Actor" index="0"]
+
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Actor" index="1"]
+
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="Actor" index="2"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[connection signal="body_entered" from="Tank" to="Tank" method="_on_Tank_body_entered"]
+
+[connection signal="body_exited" from="Tank" to="Tank" method="_on_Tank_body_exited"]
+
+
